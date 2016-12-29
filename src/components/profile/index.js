@@ -1,9 +1,10 @@
 import { h, Component } from 'preact';
 import style from './style';
-import StreamComponent from '../../lib/stream-component';
+// import StreamComponent from '../../lib/stream-component';
 import {Streams} from './streams';
+import StreamManager from '../../lib/stream-manager';
 
-export default class Profile extends StreamComponent {
+export default class Profile extends Component {
 
 	constructor(){
 		super();
@@ -11,6 +12,8 @@ export default class Profile extends StreamComponent {
 		this.state = {
 			count: 0
 		};
+
+        this.sm = new StreamManager();
 	}
 
 	// gets called when this route is navigated to
@@ -34,6 +37,7 @@ export default class Profile extends StreamComponent {
 	// gets called just before navigating away from the route
 	componentWillUnmount() {
 		clearInterval(this.timer);
+        this.sm.destroy();
 	}
 
 	// update the current time

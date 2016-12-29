@@ -27,7 +27,7 @@ export default class StreamManager {
 
     destroy() {
         this.subs.map(
-            x => x.dispose()
+            x => x.unsubscribe()
         );
         this.subs = [];
     }
