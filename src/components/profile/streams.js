@@ -1,8 +1,6 @@
-import {
-    Subject
-} from 'rxjs';
+import Stream from '../../lib/stream';
 
 export const Streams = {
-    INJECT: new Subject(),
-    CHANGE: new Subject()
+    INJECT: new Stream(),
+    CHANGE: new Stream()
 };
