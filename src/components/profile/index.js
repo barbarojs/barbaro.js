@@ -1,10 +1,11 @@
 import { h, Component } from 'preact';
 import style from './style';
+import StreamComponent from '../../lib/stream-component';
+import {Streams} from './streams';
 
-export default class Profile extends Component {
-	
+export default class Profile extends StreamComponent {
+
 	constructor(){
-
 		super();
 
 		this.state = {
@@ -20,6 +21,14 @@ export default class Profile extends Component {
 
 		// every time we get remounted, increment a counter:
 		this.setState({ count: this.state.count+1 });
+
+        // tests
+        let dispatcher = Streams.CHANGE;
+        this.sm.add(
+            dispatcher.subscribe(
+            x=> console.log(x)
+            )
+        );
 	}
 
 	// gets called just before navigating away from the route
@@ -31,6 +40,12 @@ export default class Profile extends Component {
 	updateTime() {
 		let time = new Date().toLocaleString();
 		this.setState({ time });
+
+        Streams.CHANGE.next({
+            id: '',
+            data: time
+            }
+        );
 	}
 
 	// Note: `user` comes from the URL, courtesy of our router
