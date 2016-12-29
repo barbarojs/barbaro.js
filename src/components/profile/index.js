@@ -2,9 +2,15 @@ import { h, Component } from 'preact';
 import style from './style';
 
 export default class Profile extends Component {
-	state = {
-		count: 0
-	};
+	
+	constructor(){
+
+		super();
+
+		this.state = {
+			count: 0
+		};
+	}
 
 	// gets called when this route is navigated to
 	componentDidMount() {
