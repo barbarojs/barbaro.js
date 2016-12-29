@@ -29,7 +29,7 @@ export default class Profile extends Component {
         let dispatcher = Streams.CHANGE;
         this.sm.add(
             dispatcher.subscribe(
-            x=> console.log(x)
+                x=> console.log(x)
             )
         );
 	}
