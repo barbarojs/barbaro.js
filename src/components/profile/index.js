@@ -3,6 +3,7 @@ import style from './style';
 import {Streams} from './streams';
 import StreamManager from '../../lib/stream-manager';
 // ui
+import {ProfileComponents} from './components';
 import {Components, UiButton} from '../ui';
 
 export default class Profile extends Component {
@@ -21,10 +22,16 @@ export default class Profile extends Component {
 
     // init dispatcher
     init() {
+        const buttonActions = {
+            [ProfileComponents.TEST_BUTTON]: data => {
+              console.log(data);
+            }
+        }
         // actions! move this to a store later
         const actions = {
             [Components.UiButton]: data => {
-                console.log(data);
+                // handle custom id
+                buttonActions[data.id](data);
             }
         }
         this.sm.dispatch(Streams.CHANGE, actions);
@@ -69,7 +76,7 @@ export default class Profile extends Component {
                 <div>Current time: {time}</div>
                 <div>Profile route mounted {count}
                     times.</div>
-                <UiButton streams={Streams} label="test" id="save"></UiButton>
+                <UiButton streams={Streams} label="test" id={ProfileComponents.TEST_BUTTON}></UiButton>
             </div>
         );
     }
