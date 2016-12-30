@@ -1,6 +1,4 @@
-import {
-	Subject
-} from 'rxjs';
+import {Subject} from 'rxjs';
 
 /**
  * Stream
@@ -9,7 +7,9 @@ import {
 export default class Stream extends Subject {
 
 	filterById(id, dataId) {
-		return this.filter((data) => dataId ? (data.id === id && data.data.id === dataId) : (data.id === id));
+		return this.filter((data) => dataId
+			? (data.id === id && data.data.id === dataId)
+			: (data.id === id));
 	}
 
 	filterByIds(ids) {

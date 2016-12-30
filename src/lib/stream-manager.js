@@ -16,19 +16,13 @@ export default class StreamManager {
 
 		this.subs.push(
 			channel
-			.filter(
-				x => actionKeys.includes(x.id)
-			)
-			.subscribe(
-				x => actions[x.id](x.data)
-			)
+			.filter(x => actionKeys.includes(x.id))
+			.subscribe(x => actions[x.id](x.data))
 		);
 	}
 
 	destroy() {
-		this.subs.map(
-			x => x.unsubscribe()
-		);
+		this.subs.map(x => x.unsubscribe());
 		this.subs = [];
 	}
 }
