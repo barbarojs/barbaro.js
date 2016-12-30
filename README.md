@@ -28,8 +28,8 @@ Below is a step-by-step guide that takes you straight from downloading this boil
 **1. Clone this repo:**
 
 ```sh
-git clone git@github.com:sangallimarco/barbaro.js.git
-cd barbaro.js
+git clone --depth 1 https://github.com/developit/preact-boilerplate.git my-app
+cd my-app
 ```
 
 
