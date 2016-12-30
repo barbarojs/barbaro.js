@@ -3,7 +3,7 @@ import style from './style';
 import {Streams} from './streams';
 import StreamManager from '../../lib/stream-manager';
 // ui
-import {Components, UiButton} from '../../ui';
+import {Components, UiButton} from '../ui';
 
 export default class Profile extends Component {
 

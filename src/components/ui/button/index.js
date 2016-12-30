@@ -1,5 +1,5 @@
 import {h, Component} from 'preact';
-import StreamComponent from '../../lib/stream-component';
+import StreamComponent from '../../../lib/stream-component';
 import style from './style';
 import {Components} from '../index';
 
