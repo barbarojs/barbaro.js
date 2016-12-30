@@ -91,8 +91,7 @@ module.exports = {
 	plugins: ([
 		new webpack.NoErrorsPlugin(),
 		new ExtractTextPlugin('style.css', {
-			allChunks: true,
-			disable: ENV!=='production'
+			allChunks: true
 		}),
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(ENV)
