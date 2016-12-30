@@ -1,6 +1,5 @@
 import {h, Component} from 'preact';
 import StreamComponent from '../../lib/stream-component';
-import {Link} from 'preact-router';
 import style from './style';
 import {Components} from '../index';
 
@@ -16,12 +15,12 @@ export default class UiButton extends StreamComponent {
             data: {
                 id: this.props.id
             }
-        })
+        });
     }
 
     render() {
         return (
-            <button style={style.button} onClick={evt => this.handleClick(evt)}>{this.props.label}</button>
+            <button class={style.button} onClick={evt => this.handleClick(evt)}>{this.props.label}</button>
         );
     }
 }

@@ -11,8 +11,9 @@ export default class StreamManager {
 
     dispatch(channel, actions) {
         let actionKeys = Object.keys(actions);
+        let dispatcher = channel.filter(x => actionKeys.includes(x.id)).subscribe(x => actions[x.id](x.data))
 
-        this.subs.push(channel.filter(x => actionKeys.includes(x.id)).subscribe(x => actions[x.id](x.data)));
+        this.subs.push(dispatcher);
     }
 
     destroy() {

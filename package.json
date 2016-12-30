@@ -1,7 +1,7 @@
 {
   "name": "barbarojs",
   "version": "1.0.0",
-  "description": "Ready-to-go Preact starter project powered by webpack.",
+  "description": "Ready-to-go Preact starter project powered by webpack and RxJs.",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress",
     "start": "serve build -s -c 1",
@@ -18,7 +18,7 @@
     "webpack"
   ],
   "license": "MIT",
-  "author": "Jason Miller <jason@developit.ca>",
+  "author": "Marco Sangalli <sangalli.marco@gmail.com>",
   "devDependencies": {
     "autoprefixer": "^6.4.0",
     "babel": "^6.5.2",
