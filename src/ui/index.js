@@ -1,5 +1,6 @@
 export const Components = {
-	UiButton: 'UiButton'
-}
+    UiButton: 'UiButton'
+};
 
-export * from './button/index';
+// export components
+export UiButton from './button';

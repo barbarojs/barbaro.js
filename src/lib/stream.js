@@ -6,13 +6,13 @@ import {Subject} from 'rxjs';
  */
 export default class Stream extends Subject {
 
-	filterById(id, dataId) {
-		return this.filter((data) => dataId
-			? (data.id === id && data.data.id === dataId)
-			: (data.id === id));
-	}
+    filterById(id, dataId) {
+        return this.filter((data) => dataId
+            ? (data.id === id && data.data.id === dataId)
+            : (data.id === id));
+    }
 
-	filterByIds(ids) {
-		return this.filter((data) => ids.includes(data.id));
-	}
+    filterByIds(ids) {
+        return this.filter((data) => ids.includes(data.id));
+    }
 }
