@@ -1,6 +1,8 @@
 # Preact Boilerplate with RxJs
 (original project here https://github.com/developit/preact-boilerplate)
 
+[![Build Status](https://circleci.com/gh/sangallimarco/barbaro.js.png?circle-token=42ba9d204c76929a3d685abbe8523d4f97629afe)]
+
 If you're starting a new project using [Preact], you've come to the right place.
 Below is a step-by-step guide that takes you straight from downloading this boilerplate to production.
 
