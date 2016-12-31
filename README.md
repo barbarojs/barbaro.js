@@ -1,15 +1,8 @@
-# Preact Boilerplate / Starter Kit
+# Preact Boilerplate with RxJs
+(original project here https://github.com/developit/preact-boilerplate)
 
-[![Build Status](https://travis-ci.org/developit/preact-boilerplate.svg?branch=master)](https://travis-ci.org/developit/preact-boilerplate)
-[![gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/developit/preact)
-
-> :guitar: Ready-to-rock [Preact] starter project, powered by [webpack].
->
-> :rocket: If you're starting a new project using [Preact], you've come to the right place.
+If you're starting a new project using [Preact], you've come to the right place.
 Below is a step-by-step guide that takes you straight from downloading this boilerplate to production.
->
-> **[:boom: View Demo :boom:](https://preact-boilerplate.surge.sh)**
-
 
 ---
 
@@ -28,7 +21,7 @@ Below is a step-by-step guide that takes you straight from downloading this boil
 **1. Clone this repo:**
 
 ```sh
-git clone --depth 1 https://github.com/developit/preact-boilerplate.git my-app
+git clone --depth 1 https://github.com/sangallimarco/barbaro.js.git
 cd my-app
 ```
 
@@ -80,7 +73,7 @@ npm run build
 > You can now deploy the contents of the `build` directory to production!
 >
 > **[Surge.sh](https://surge.sh) Example:** `surge ./build -d my-app.surge.sh`
-> 
+>
 > **[Netlify](https://www.netlify.com/docs/cli/) Example:** `netlify deploy`
 >
 > [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/developit/preact-boilerplate)
