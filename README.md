@@ -140,7 +140,7 @@ Note that the suffix for local classNames is generated based on an md5 hash of t
 
 ## Handling URLS
 
-:information_desk_person: This project contains a basic two-page app with [URL routing](http://git.io/preact-router).
+This project contains a basic two-page app with [URL routing](http://git.io/preact-router).
 
 Pages are just regular components that get mounted when you navigate to a certain URL. Any URL parameters get passed to the component as `props`.
 
