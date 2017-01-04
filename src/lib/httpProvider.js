@@ -3,7 +3,6 @@ import 'whatwg-fetch';
 class httpProvider {
 
     constructor() {
-
         this.options = {
             headers: {
                 'Content-Type': 'application/json',
@@ -16,7 +15,7 @@ class httpProvider {
         return this.options;
     }
 
-    setToken(token) {
+    setJwtToken(token) {
         this.options.headers.authorization = `Bearer ${token}`;
     }
 }

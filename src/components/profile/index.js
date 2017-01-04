@@ -6,6 +6,9 @@ import StreamManager from '../../lib/stream-manager';
 import {ProfileComponents} from './components';
 import {Components, UiButton} from '../ui';
 
+import {ApiRoutes} from './api';
+import http from '../../lib/http';
+
 export default class Profile extends Component {
 
     constructor() {
@@ -25,6 +28,9 @@ export default class Profile extends Component {
         const buttonActions = {
             [ProfileComponents.TEST_BUTTON]: data => {
               console.log(data);
+
+              // test a connection
+              this.getData();
             }
         }
         // actions! move this to a store later
@@ -62,6 +68,16 @@ export default class Profile extends Component {
     updateTime() {
         let time = new Date().toLocaleString();
         this.setState({time});
+    }
+
+    // get data over http
+    getData() {
+      let conn = new http(ApiRoutes.DEFAULT);
+      conn
+        .get({id: 123})
+        .then(
+          x => console.log(x)
+        );
     }
 
     // Note: `user` comes from the URL, courtesy of our router

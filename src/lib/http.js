@@ -1,7 +1,7 @@
 import 'whatwg-fetch';
 import httpProvider from './httpProvider';
 
-class http {
+export default class http {
 
     constructor(apiURI) {
         this.interpolationRegExp = /(\:[a-z])/i;
@@ -26,19 +26,21 @@ class http {
     }
 
     remap(data) {
+        let dataKeys = Object.keys(data);
+
         return {
-            params: _.pick(data, this.interpolationKeys),
-            payload: _.omit(data, this.interpolationKeys)
+            params: dataKeys.filter(x=>this.interpolationKeys.includes(x)).map(x=>data[x]),
+            payload: dataKeys.filter(x=>!this.interpolationKeys.includes(x)).map(x=>data[x])
         };
     }
 
     prepare(method, data) {
-        // interpolate
+        // interpolate??
+
         let {params, payload} = this.remap(data);
         let URI = this.apiURI;
 
-        if (interpolated) {
-            let params = encodeURIComponent(interpolated);
+        if (params) {
             URI = `${URI}?${encodeURIComponent(params)}`;
         }
 
@@ -51,9 +53,11 @@ class http {
 
     serialiseData(data) {
         let newData = {};
+        let dataKeys = Object.keys(data);
 
-        _.map(data, (val, key) => {
-            newData[key] = _.isObject(val)
+        dataKeys.forEach(key => {
+            let val = data[key];
+            newData[key] = typeof val === 'object'
                 ? btoa(JSON.stringify(val))
                 : val;
         });
@@ -70,7 +74,6 @@ class http {
     post(data) {
         return this.create('POST', data).then((res) => {
             return res;
-        }}
-
-    export httpProvider;
-    export http;
+        });
+    }
+}
