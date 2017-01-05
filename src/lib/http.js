@@ -1,56 +1,107 @@
 import 'whatwg-fetch';
 import httpProvider from './httpProvider';
 
+const VERBS = {
+    GET: 'GET',
+    POST: 'POST',
+    PUT: 'PUT',
+    PATCH: 'PATCH',
+    DELETE: 'DELETE'
+};
+
 export default class http {
 
     constructor(apiURI) {
         this.interpolationRegExp = /(\:[a-z])/i;
-
+        this.provider = httpProvider;
         this.apiURI = apiURI;
-        this.interpolationKeys = this.createParams(apiURI);
+        this.interpolations = {};
+
+        this.createParams(apiURI);
     }
 
     createParams(URI) {
-        let keys = [];
+        let interpolations = {};
 
         // split querystring from body
-        URI.split('/')
-          .filter((x) => this.interpolationRegExp.test(x))
-          .forEach((x) => {
-              let o = x.substr(1);
-              keys.push(o);
-          }
-        );
+        let parts = URI.split('/');
+        parts.forEach((x, i) => {
+            if (this.interpolationRegExp.test(x)) {
+                let k = x.substr(1);
+                interpolations[k] = i;
+            }
+        });
 
-        return keys;
+        this.interpolations = {
+            keys: Object.keys(interpolations),
+            parts: parts,
+            lookup: interpolations
+        };
+    }
+
+    interpolate(data) {
+        let newParts = this.interpolations.parts.slice(0);
+        let lookup = this.interpolations.lookup;
+
+        this.interpolations.keys.forEach((k) => {
+            //get position
+            let idx = lookup[k];
+            newParts[idx] = data[k];
+        });
+
+        return newParts.join('/');
     }
 
     remap(data) {
         let dataKeys = Object.keys(data);
+        let params = {};
+        let payload = {};
 
-        return {
-            params: dataKeys.filter(x=>this.interpolationKeys.includes(x)).map(x=>data[x]),
-            payload: dataKeys.filter(x=>!this.interpolationKeys.includes(x)).map(x=>data[x])
-        };
+        dataKeys.filter(x => this.interpolations.keys.includes(x)).forEach(x => params[x] = data[x]);
+        dataKeys.filter(x => !this.interpolations.keys.includes(x)).forEach(x => payload[x] = data[x]);
+
+        return {params, payload};
     }
 
     prepare(method, data) {
-        // interpolate??
+        // serialise
+        // let newData = this.serialise(data);
 
+        // get params for interpolation and payload
         let {params, payload} = this.remap(data);
-        let URI = this.apiURI;
 
-        if (params) {
-            URI = `${URI}?${encodeURIComponent(params)}`;
-        }
+        // replace parts in the template
+        let URI = this.interpolate(params);
 
-        if (payload) {
-            options.body = JSON.stringify(payload);
+        // get default fetch options form provider
+        let options = this.provider.getOptions();
+
+        // check if payload is not empty
+        if (Object.keys(payload).length) {
+            if (method === VERBS.GET) {
+                // encode string here
+                URI = `${URI}?${this.flattenPayload(payload)}`;
+            } else {
+                options.body = JSON.stringify(payload);
+            }
         }
 
         return fetch(URI, options);
     }
 
+    // return flatten payload
+    flattenPayload(payload) {
+        let dataKeys = Object.keys(data);
+        let newPayload = [];
+
+        dataKeys.forEach(key => {
+            newPayload.push(`${key}=${encodeURIComponent(payload[key])}`);
+        });
+
+        return newPayload.join('&');
+    }
+
+    // turn JS objects into base64 strings
     serialiseData(data) {
         let newData = {};
         let dataKeys = Object.keys(data);
@@ -66,13 +117,13 @@ export default class http {
     }
 
     get(data) {
-        return this.prepare('GET', data).then((res) => {
+        return this.prepare(VERBS.GET, data).then((res) => {
             return res;
         });
     }
 
     post(data) {
-        return this.create('POST', data).then((res) => {
+        return this.create(VERBS.POST, data).then((res) => {
             return res;
         });
     }
