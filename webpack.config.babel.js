@@ -122,7 +122,7 @@ module.exports = {
     .concat(cliArgs.stats ? [
         new BundleAnalyzerPlugin()
     ] : []),
-    
+
 	stats: {
 		colors: true
 	},
