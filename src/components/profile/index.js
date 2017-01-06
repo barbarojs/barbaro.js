@@ -20,11 +20,10 @@ export default class Profile extends Component {
 
         // handle streams
         this.sm = new StreamManager();
-        this.init();
     }
 
     // init dispatcher
-    init() {
+    componentWillMount() {
         const buttonActions = {
             [ProfileComponents.TEST_BUTTON]: data => {
                 console.log(data);
