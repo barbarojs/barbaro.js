@@ -64,9 +64,6 @@ export default class http {
     }
 
     prepare(method, data) {
-        // serialise
-        // let newData = this.serialise(data);
-
         // get params for interpolation and payload
         let {params, payload} = this.remap(data);
 
@@ -74,7 +71,7 @@ export default class http {
         let URI = this.interpolate(params);
 
         // get default fetch options form provider
-        let options = this.provider.getOptions();
+        let options = Object.assign(this.provider.getOptions(), {method: method});
 
         // check if payload is not empty
         if (Object.keys(payload).length) {
@@ -123,7 +120,7 @@ export default class http {
     }
 
     post(data) {
-        return this.create(VERBS.POST, data).then((res) => {
+        return this.prepare(VERBS.POST, data).then((res) => {
             return res;
         });
     }

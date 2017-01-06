@@ -27,10 +27,10 @@ export default class Profile extends Component {
     init() {
         const buttonActions = {
             [ProfileComponents.TEST_BUTTON]: data => {
-              console.log(data);
+                console.log(data);
 
-              // test a connection
-              this.getData();
+                // test a connection
+                this.getData();
             }
         }
         // actions! move this to a store later
@@ -72,12 +72,10 @@ export default class Profile extends Component {
 
     // get data over http
     getData() {
-      let conn = new http(ApiRoutes.DEFAULT);
-      conn
-        .get({id: 123, test:1})
-        .then(
-          x => console.log(x)
-        );
+        let conn = new http(ApiRoutes.DEFAULT);
+        conn.get({id: 123, test: 1}).then(x => console.log(x));
+
+        conn.post({id: 123, test: 1}).then(x => console.log(x));
     }
 
     // Note: `user` comes from the URL, courtesy of our router
