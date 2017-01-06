@@ -21,19 +21,21 @@ export default class http {
     }
 
     createParams(URI) {
-        let interpolations = {};
+        let interpolations = new Map();
 
         // split querystring from body
         let parts = URI.split('/');
+        let keys = [];
         parts.forEach((x, i) => {
             if (this.interpolationRegExp.test(x)) {
                 let k = x.substr(1);
-                interpolations[k] = i;
+                interpolations.set(k, i);
+                keys.push(k);
             }
         });
 
         this.interpolations = {
-            keys: Object.keys(interpolations),
+            keys: keys,
             parts: parts,
             lookup: interpolations
         };
@@ -41,12 +43,9 @@ export default class http {
 
     interpolate(data) {
         let newParts = this.interpolations.parts.slice(0);
-        let lookup = this.interpolations.lookup;
 
-        this.interpolations.keys.forEach((k) => {
-            //get position
-            let idx = lookup[k];
-            newParts[idx] = data[k];
+        this.interpolations.lookup.forEach((position,k) => {
+            newParts[position] = data[k];
         });
 
         return newParts.join('/');
