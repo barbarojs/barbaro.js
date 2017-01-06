@@ -74,7 +74,7 @@ export default class Profile extends Component {
     getData() {
       let conn = new http(ApiRoutes.DEFAULT);
       conn
-        .get({id: 123})
+        .get({id: 123, test:1})
         .then(
           x => console.log(x)
         );

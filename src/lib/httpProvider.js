@@ -6,7 +6,7 @@ class httpProvider {
         this.options = {
             headers: {
                 'Content-Type': 'application/json',
-                authorization: ''
+                Authorization: ''
             }
         };
     }
@@ -16,11 +16,11 @@ class httpProvider {
     }
 
     setJwtToken(token) {
-        this.options.headers.authorization = `Bearer ${token}`;
+        this.options.headers.Authorization = `Bearer ${token}`;
     }
 
     removeJwtToken() {
-        this.options.headers.authorization = '';
+        this.options.headers.Authorization = '';
     }
 
 }

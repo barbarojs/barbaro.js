@@ -90,12 +90,12 @@ export default class http {
     }
 
     // return flatten payload
-    flattenPayload(payload) {
+    flattenPayload(data) {
         let dataKeys = Object.keys(data);
         let newPayload = [];
 
         dataKeys.forEach(key => {
-            newPayload.push(`${key}=${encodeURIComponent(payload[key])}`);
+            newPayload.push(`${key}=${encodeURIComponent(data[key])}`);
         });
 
         return newPayload.join('&');
