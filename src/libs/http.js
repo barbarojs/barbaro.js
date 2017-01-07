@@ -1,5 +1,5 @@
 import 'whatwg-fetch';
-import httpProvider from './httpProvider';
+import httpProvider from './http-provider';
 
 const VERBS = {
     GET: 'GET',

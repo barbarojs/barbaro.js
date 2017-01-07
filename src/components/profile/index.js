@@ -1,13 +1,10 @@
 import {h, Component} from 'preact';
 import style from './style';
 import {Streams} from './streams';
-import StreamManager from '../../lib/stream-manager';
-// ui
+import {http, StreamManager} from '../../libs';
 import {ProfileComponents} from './components';
 import {Components, UiButton} from '../ui';
-
 import {ApiRoutes} from './api';
-import http from '../../lib/http';
 
 export default class Profile extends Component {
 
@@ -52,9 +49,6 @@ export default class Profile extends Component {
         this.setState({
             count: this.state.count + 1
         });
-
-        // tests
-        let dispatcher = Streams.CHANGE;
     }
 
     // gets called just before navigating away from the route

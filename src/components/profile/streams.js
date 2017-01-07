@@ -1,4 +1,4 @@
-import Stream from '../../lib/stream';
+import {Stream} from '../../libs';
 
 export const Streams = {
 	INJECT: new Stream(),
