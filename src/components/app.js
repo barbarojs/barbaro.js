@@ -5,8 +5,8 @@ import NotFound from './notFound';
 import Header from './header';
 import Home from './home';
 import Profile from './profile';
-import SplitCode from './splitPoint';
-import Loading from './loading';
+import Loading from './ui/loading';
+import SplitCode from './utils/splitPoint';
 
 export default class App extends Component {
     /** Gets fired when the route changes.
@@ -25,12 +25,12 @@ export default class App extends Component {
                     <Home path="/"></Home>
                     <SplitCode 
                         path="/code-splitting-page" 
-                        load={require('bundle?lazy!./code-splitting-page')} 
-                        fallbackContent={(<Loading></Loading>)}>
+                        load={require('bundle?lazy!./codeSplittingPage')} 
+                        fallbackContent={(<div style="margin-top:64px;">custom loading fallback</div>)}> {/* TODO improve style page to remove this inline style */}
                     </SplitCode>
                     <Profile path="/profile/" user="me"></Profile>
                     <Profile path="/profile/:user"></Profile>
-                    <NotFound path="/not-found"></NotFound>
+                    <NotFound default></NotFound>
                 </Router>
             </div>
         );
