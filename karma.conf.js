@@ -1,5 +1,5 @@
 require('babel-register');
-var webpack = require('../webpack.config.babel.js');
+var webpack = require('./webpack.config.babel.js');
 var path = require('path');
 
 webpack.module.loaders.push({
@@ -10,7 +10,7 @@ webpack.module.loaders.push({
 
 module.exports = function(config) {
 	config.set({
-		basePath: '../',
+		basePath: './',
 		frameworks: ['mocha', 'chai-sinon'],
 		reporters: ['mocha', 'coverage'],
 		coverageReporter: {
@@ -25,19 +25,21 @@ module.exports = function(config) {
 				}
 			]
 		},
-
 		browsers: ['PhantomJS'],
-
 		files: [
-			'test/browser/**/*.js'
+			'node_modules/babel-polyfill/dist/polyfill.js',
+			'test/*.js'
 		],
-
 		preprocessors: {
 			'test/**/*.js': ['webpack'],
 			'src/**/*.js': ['webpack'],
 			'**/*.js': ['sourcemap']
 		},
-
+		babelPreprocessor: {
+            options: {
+                presets: ['es2015']
+            }
+        },
 		webpack: webpack,
 		webpackMiddleware: { noInfo: true }
 	});
