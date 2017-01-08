@@ -1,12 +1,10 @@
 import {h, Component} from 'preact';
 import {Router} from 'preact-router';
-
+import {SplitCode} from './utils';
 import NotFound from './notFound';
 import Header from './header';
 import Home from './home';
 import Profile from './profile';
-import Loading from './ui/loading';
-import SplitCode from './utils/splitPoint';
 
 export default class App extends Component {
     /** Gets fired when the route changes.

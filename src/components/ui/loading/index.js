@@ -1,8 +1,8 @@
 import {h, Component} from 'preact';
-import If from '../../utils/if';
+import {If} from '../../utils';
 import style from './style';
 
-export default class Loading extends Component {
+export default class UiLoading extends Component {
     render({children}) {
         return (
             <div class={style.loading}>

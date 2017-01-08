@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import Loading from '../../ui/loading';
+import {UiLoading} from '../../ui';
 
 export default class SplitCode extends Component {
 	componentWillMount() {
@@ -8,7 +8,7 @@ export default class SplitCode extends Component {
         });
 	}
 	render({ load, fallbackContent, ...props }, { deferredBundle }) {
-        let loadingComponent = fallbackContent ? fallbackContent : <Loading></Loading>;
+        let loadingComponent = fallbackContent ? fallbackContent : <UiLoading></UiLoading>;
 
         return deferredBundle ? h(deferredBundle, props) : loadingComponent || null;
 	}

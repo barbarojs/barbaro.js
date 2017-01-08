@@ -1,6 +1,6 @@
 export const Components = {
-    UiButton: 'UiButton'
+    UiButton: 'UiButton',
+    UiLoading: 'UiLoading'
 };
-
-// export components
 export UiButton from './button';
+export UiLoading from './loading';
