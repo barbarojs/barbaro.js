@@ -1,3 +1,3 @@
 export const ApiRoutes = {
-  DEFAULT: '/test/:id'
+	DEFAULT: '/test/:id'
 };
