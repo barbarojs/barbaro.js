@@ -1,3 +1,4 @@
+- investigate webpack import the whole RxJs
 - code splitting css
 - add css structure folder: setting, tool, generic, base, element, atomic, utility / style from component
 - replace less for postcss plugin
