@@ -1,0 +1,10 @@
+- code splitting css
+- add css structure folder: setting, tool, generic, base, element, atomic, utility / style from component
+- replace less for postcss plugin
+- cssnext http://cssnext.io/
+- add fonts icon
+- add loading icon into UiLoading component
+- navigation change style on active link
+- add stylelint
+- mdcss
+- add visual regression test

@@ -1,6 +1,7 @@
 import {h, Component} from 'preact';
 import {Router} from 'preact-router';
-
+import {SplitCode} from './utils';
+import NotFound from './notFound';
 import Header from './header';
 import Home from './home';
 import Profile from './profile';
@@ -17,11 +18,17 @@ export default class App extends Component {
     render() {
         return (
             <div id="app">
-                <Header/>
+                <Header></Header>
                 <Router onChange={this.handleRoute}>
-                    <Home path="/"/>
-                    <Profile path="/profile/" user="me"/>
-                    <Profile path="/profile/:user"/>
+                    <Home path="/"></Home>
+                    <SplitCode 
+                        path="/code-splitting-page" 
+                        load={require('bundle?lazy!./codeSplittingPage')} 
+                        fallbackContent={(<div style="margin-top:64px;">custom loading fallback</div>)}> {/* TODO improve style page to remove this inline style */}
+                    </SplitCode>
+                    <Profile path="/profile/" user="me"></Profile>
+                    <Profile path="/profile/:user"></Profile>
+                    <NotFound default></NotFound>
                 </Router>
             </div>
         );

@@ -13,6 +13,9 @@ export default class Header extends Component {
                     <Link href="/">
                         Home
                     </Link>
+                    <Link href="/code-splitting-page">
+                        Code splitting
+                    </Link>
                     <Link href="/profile">
                         Me
                     </Link>
