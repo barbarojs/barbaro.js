@@ -81,7 +81,9 @@ module.exports = {
 		]
 	},
 
-	postcss: () => [autoprefixer({browsers: 'last 2 versions'})],
+	postcss: () => [
+        autoprefixer({browsers: 'last 2 versions'})
+    ],
 
 	plugins: ([
 		new webpack.NoErrorsPlugin(),
@@ -103,14 +105,15 @@ module.exports = {
 			}
 		])
 	])
-    .concat(ENV==='production' ? [
-        // strip out babel-helper invariant checks
-		new ReplacePlugin([{
-			// this is actually the property name https://github.com/kimhou/replace-bundle-webpack-plugin/issues/1
-			partten: /throw\s+(new\s+)?[a-zA-Z]+Error\s*\(/g,
-			replacement: () => 'return;('
-		}]),
-
+    .concat(ENV === 'production' ? [
+		// strip out babel-helper invariant checks
+		new ReplacePlugin([
+			{
+				// this is actually the property name https://github.com/kimhou/replace-bundle-webpack-plugin/issues/1
+				partten: /throw\s+(new\s+)?[a-zA-Z]+Error\s*\(/g,
+				replacement: () => 'return;('
+			}
+		]),
 		new OfflinePlugin({
 			relativePaths: false,
 			AppCache: false,
@@ -121,9 +124,9 @@ module.exports = {
 		})
 	] : [])
     .concat(cliArgs.stats ? [
-		new BundleAnalyzerPlugin()
-	] : []),
-
+        new BundleAnalyzerPlugin()
+    ] : []),
+    
 	stats: {
 		colors: true
 	},
