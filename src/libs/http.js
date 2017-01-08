@@ -82,7 +82,7 @@ export default class http {
 			}
 		}
 
-		return fetch(URI, options);
+		return {URI, options};
 	}
 
 	// return flatten payload
@@ -113,13 +113,15 @@ export default class http {
 	}
 
 	get(data) {
-		return this.prepare(VERBS.GET, data).then((res) => {
+		let {URI, options} = this.prepare(VERBS.GET, data);
+		return fetch(URI, options).then((res) => {
 			return res;
 		});
 	}
 
 	post(data) {
-		return this.prepare(VERBS.POST, data).then((res) => {
+		let {URI, options} = this.prepare(VERBS.POST, data);
+		return fetch(URI, options).then((res) => {
 			return res;
 		});
 	}
