@@ -1,5 +1,3 @@
-import {Subject} from 'rxjs';
-
 export default class StreamManager {
 	constructor() {
 		this.subs = [];

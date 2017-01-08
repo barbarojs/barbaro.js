@@ -6,16 +6,17 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ReplacePlugin from 'replace-bundle-webpack-plugin';
 import OfflinePlugin from 'offline-plugin';
 import path from 'path';
+import parseArgs from 'minimist';
+import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer';
 
 const ENV = process.env.NODE_ENV || 'development';
-
 const CSS_MAPS = ENV !== 'production';
+const cliArgs = parseArgs(process.argv.slice(2));
 
 module.exports = {
 	context: path.resolve(__dirname, 'src'),
 	entry: [
-		'babel-polyfill',
-		'./index.js'
+		'babel-polyfill', './index.js'
 	], // adding polyfill
 
 	output: {
@@ -120,12 +121,13 @@ module.exports = {
 				publicPath: '/'
 			})
 		]
+		: []).concat(cliArgs.stats
+		? [new BundleAnalyzerPlugin()]
 		: []),
 
 	stats: {
 		colors: true
 	},
-
 	node: {
 		global: true,
 		process: false,

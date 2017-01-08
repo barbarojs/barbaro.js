@@ -8,6 +8,7 @@
     "prestart": "npm run build",
     "build": "cross-env NODE_ENV=production webpack -p --progress",
     "prebuild": "mkdirp build && ncp src/assets build/assets",
+    "stats": "cross-env NODE_ENV=production webpack -p --progress --stats",
     "test": "npm run -s lint && npm run -s test:karma",
     "test:karma": "karma start karma.conf.js --single-run",
     "lint": "eslint {src,test}"
@@ -15,7 +16,8 @@
   "keywords": [
     "preact",
     "boilerplate",
-    "webpack"
+    "webpack",
+    "events"
   ],
   "license": "MIT",
   "author": "Marco Sangalli <sangalli.marco@gmail.com>",
@@ -56,6 +58,7 @@
     "karma-webpack": "^1.8.1",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
+    "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "mocha": "^3.0.0",
     "ncp": "^2.0.0",
@@ -71,6 +74,7 @@
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.2",
+    "webpack-bundle-analyzer": "^2.2.1",
     "webpack-dev-server": "^1.15.0"
   },
   "dependencies": {
