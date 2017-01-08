@@ -6,10 +6,12 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ReplacePlugin from 'replace-bundle-webpack-plugin';
 import OfflinePlugin from 'offline-plugin';
 import path from 'path';
+import parseArgs from 'minimist';
+import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer';
 
 const ENV = process.env.NODE_ENV || 'development';
-
 const CSS_MAPS = ENV!=='production';
+const cliArgs = parseArgs(process.argv.slice(2));
 
 module.exports = {
 	context: path.resolve(__dirname, "src"),
@@ -105,8 +107,9 @@ module.exports = {
 			{ from: './manifest.json', to: './' },
 			{ from: './favicon.ico', to: './' }
 		])
-	]).concat(ENV==='production' ? [
-		// strip out babel-helper invariant checks
+	])
+    .concat(ENV==='production' ? [
+        // strip out babel-helper invariant checks
 		new ReplacePlugin([{
 			// this is actually the property name https://github.com/kimhou/replace-bundle-webpack-plugin/issues/1
 			partten: /throw\s+(new\s+)?[a-zA-Z]+Error\s*\(/g,
@@ -121,6 +124,9 @@ module.exports = {
 			},
 			publicPath: '/'
 		})
+	] : [])
+    .concat(cliArgs.stats ? [
+		new BundleAnalyzerPlugin()
 	] : []),
 
 	stats: { colors: true },
