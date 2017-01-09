@@ -15,12 +15,10 @@ const cliArgs = parseArgs(process.argv.slice(2));
 
 module.exports = {
 	context: path.resolve(__dirname, 'src'),
-	
 	entry: [
 		// 'babel-polyfill', // @TODO this is adding some KB
 		'./index.js'
 	],
-
 	output: {
 		path: path.resolve(__dirname, 'build'),
 		publicPath: '/',
@@ -123,7 +121,6 @@ module.exports = {
     .concat(cliArgs.stats ? [
         new BundleAnalyzerPlugin()
     ] : []),
-
 	stats: {
 		colors: true
 	},
