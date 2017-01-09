@@ -16,8 +16,9 @@ const cliArgs = parseArgs(process.argv.slice(2));
 module.exports = {
 	context: path.resolve(__dirname, 'src'),
 	entry: [
-		'babel-polyfill', './index.js'
-	], // adding polyfill
+		// 'babel-polyfill', // @TODO this is adding some KB
+		'./index.js'
+	],
 
 	output: {
 		path: path.resolve(__dirname, 'build'),
@@ -145,6 +146,7 @@ module.exports = {
 		colors: true,
 		publicPath: '/',
 		contentBase: './src',
+		compress: true,
 		historyApiFallback: true,
 		open: true,
 		proxy: {
