@@ -1,4 +1,5 @@
-import {Subject} from 'rxjs';
+import {Subject} from 'rxjs/Subject';
+import 'rxjs/add/operator/filter';
 
 /**
  * Stream

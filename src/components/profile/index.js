@@ -43,7 +43,7 @@ export default class Profile extends Component {
 	// gets called when this route is navigated to
 	componentDidMount() {
 		// start a timer for the clock:
-		this.timer = setInterval(:: this.updateTime, 1000);
+		this.timer = setInterval(::this.updateTime, 1000);
 		this.updateTime();
 
 		// every time we get remounted, increment a counter:

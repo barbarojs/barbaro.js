@@ -5,6 +5,7 @@ import NotFound from './notFound';
 import Header from './header';
 import Home from './home';
 import Profile from './profile';
+// import "babel-polyfill";
 
 export default class App extends Component {
 	/** Gets fired when the route changes.
