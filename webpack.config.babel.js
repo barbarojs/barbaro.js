@@ -16,7 +16,7 @@ const cliArgs = parseArgs(process.argv.slice(2));
 module.exports = {
 	context: path.resolve(__dirname, 'src'),
 	entry: [
-		// 'babel-polyfill', // @TODO this is adding some KB
+		//'babel-polyfill', // @TODO this is adding some KB
 		'./index.js'
 	],
 
@@ -104,13 +104,6 @@ module.exports = {
 		])
 	])
     .concat(ENV==='production' ? [
-        // strip out babel-helper invariant checks
-		new ReplacePlugin([{
-			// this is actually the property name https://github.com/kimhou/replace-bundle-webpack-plugin/issues/1
-			partten: /throw\s+(new\s+)?[a-zA-Z]+Error\s*\(/g,
-			replacement: () => 'return;('
-		}]),
-    .concat(ENV === 'production' ? [
 		// strip out babel-helper invariant checks
 		new ReplacePlugin([{
 			// this is actually the property name https://github.com/kimhou/replace-bundle-webpack-plugin/issues/1

@@ -6,5 +6,7 @@
 - add loading icon into UiLoading component
 - navigation change style on active link
 - add stylelint
+- implement https://github.com/babel/babel-preset-env
 - mdcss
 - add visual regression test
+
