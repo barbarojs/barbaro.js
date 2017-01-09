@@ -104,14 +104,7 @@ module.exports = {
 			}
 		])
 	])
-    .concat(ENV==='production' ? [
-		// strip out babel-helper invariant checks
-		new ReplacePlugin([{
-			// this is actually the property name https://github.com/kimhou/replace-bundle-webpack-plugin/issues/1
-			partten: /throw\s+(new\s+)?[a-zA-Z]+Error\s*\(/g,
-			replacement: () => 'return;('
-		}]),
-    .concat(ENV === 'production' ? [
+	.concat(ENV==='production' ? [
 		// strip out babel-helper invariant checks
 		new ReplacePlugin([{
 			// this is actually the property name https://github.com/kimhou/replace-bundle-webpack-plugin/issues/1
