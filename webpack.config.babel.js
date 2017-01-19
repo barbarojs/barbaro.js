@@ -15,10 +15,8 @@ const cliArgs = parseArgs(process.argv.slice(2));
 
 module.exports = {
 	context: path.resolve(__dirname, 'src'),
-	entry: [
-		// 'babel-polyfill', // @TODO this is adding some KB
-		'./index.js'
-	],
+	entry: [// 'babel-polyfill', // @TODO this is adding some KB
+		'./index.js'],
 	output: {
 		path: path.resolve(__dirname, 'build'),
 		publicPath: '/',
@@ -55,6 +53,10 @@ module.exports = {
 				exclude: /node_modules/,
 				loader: 'babel'
 			}, {
+				test: /\.jsx?$/,
+				include: /node_modules\/barbarojs/,
+				loader: 'babel'
+			}, {
 				// Transform our own .(less|css) files with PostCSS and CSS-modules
 				test: /\.(less|css)$/,
 				include: [path.resolve(__dirname, 'src/components')],
@@ -78,9 +80,7 @@ module.exports = {
 		]
 	},
 
-	postcss: () => [
-        autoprefixer({browsers: 'last 2 versions'})
-    ],
+	postcss: () => [autoprefixer({browsers: 'last 2 versions'})],
 
 	plugins: ([
 		new webpack.NoErrorsPlugin(),
@@ -101,26 +101,28 @@ module.exports = {
 				to: './'
 			}
 		])
-	])
-	.concat(ENV==='production' ? [
-		// strip out babel-helper invariant checks
-		new ReplacePlugin([{
-			// this is actually the property name https://github.com/kimhou/replace-bundle-webpack-plugin/issues/1
-			partten: /throw\s+(new\s+)?[a-zA-Z]+Error\s*\(/g,
-			replacement: () => 'return;('
-		}]),
-		new OfflinePlugin({
-			relativePaths: false,
-			AppCache: false,
-			ServiceWorker: {
-				events: true
-			},
-			publicPath: '/'
-		})
-	] : [])
-    .concat(cliArgs.stats ? [
-        new BundleAnalyzerPlugin()
-    ] : []),
+	]).concat(ENV === 'production'
+		? [
+			// strip out babel-helper invariant checks
+			new ReplacePlugin([
+				{
+					// this is actually the property name https://github.com/kimhou/replace-bundle-webpack-plugin/issues/1
+					partten: /throw\s+(new\s+)?[a-zA-Z]+Error\s*\(/g,
+					replacement: () => 'return;('
+				}
+			]),
+			new OfflinePlugin({
+				relativePaths: false,
+				AppCache: false,
+				ServiceWorker: {
+					events: true
+				},
+				publicPath: '/'
+			})
+		]
+		: []).concat(cliArgs.stats
+		? [new BundleAnalyzerPlugin()]
+		: []),
 	stats: {
 		colors: true
 	},
