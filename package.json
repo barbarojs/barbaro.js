@@ -80,6 +80,7 @@
   },
   "dependencies": {
     "barbarojs-http": "git+https://github.com/barbarojs/barbarojs-http.git",
+    "barbarojs-stream": "git+https://github.com/barbarojs/barbarojs-stream.git",
     "preact": "^6.0.0",
     "preact-compat": "^3.0.0",
     "preact-router": "^2.0.0",

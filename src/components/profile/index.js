@@ -2,7 +2,7 @@ import {h, Component} from 'preact';
 import style from './style';
 import {Streams} from './streams';
 import {http} from 'barbarojs-http';
-import {StreamManager} from '../../libs';
+import {StreamManager} from 'barbarojs-stream';
 import {ProfileComponents} from './components';
 import {Components, UiButton} from '../ui';
 import {ApiRoutes} from './api';
