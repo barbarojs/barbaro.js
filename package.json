@@ -79,6 +79,7 @@
     "webpack-dev-server": "^1.15.0"
   },
   "dependencies": {
+    "barbarojs-http": "git+https://github.com/barbarojs/barbarojs-http.git",
     "preact": "^6.0.0",
     "preact-compat": "^3.0.0",
     "preact-router": "^2.0.0",

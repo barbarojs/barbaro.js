@@ -1,7 +1,8 @@
 import {h, Component} from 'preact';
 import style from './style';
 import {Streams} from './streams';
-import {http, StreamManager} from '../../libs';
+import {http} from 'barbarojs-http';
+import {StreamManager} from '../../libs';
 import {ProfileComponents} from './components';
 import {Components, UiButton} from '../ui';
 import {ApiRoutes} from './api';
@@ -36,7 +37,7 @@ export default class Profile extends Component {
 				buttonActions[data.id](data);
 			}
 		};
-		
+
 		this.sm.dispatch(Streams.CHANGE, actions);
 	}
 
