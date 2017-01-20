@@ -7,7 +7,9 @@ import ReplacePlugin from 'replace-bundle-webpack-plugin';
 import OfflinePlugin from 'offline-plugin';
 import path from 'path';
 import parseArgs from 'minimist';
-import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer';
+import {
+	BundleAnalyzerPlugin
+} from 'webpack-bundle-analyzer';
 
 const ENV = process.env.NODE_ENV || 'development';
 const CSS_MAPS = ENV !== 'production';
@@ -15,8 +17,9 @@ const cliArgs = parseArgs(process.argv.slice(2));
 
 module.exports = {
 	context: path.resolve(__dirname, 'src'),
-	entry: [// 'babel-polyfill', // @TODO this is adding some KB
-		'./index.js'],
+	entry: [ // 'babel-polyfill', // @TODO this is adding some KB
+		'./index.js'
+	],
 	output: {
 		path: path.resolve(__dirname, 'build'),
 		publicPath: '/',
@@ -40,77 +43,71 @@ module.exports = {
 	},
 
 	module: {
-		preLoaders: [
-			{
-				test: /\.jsx?$/,
-				exclude: path.resolve(__dirname, 'src'),
-				loader: 'source-map'
-			}
-		],
-		loaders: [
-			{
-				test: /\.jsx?$/,
-				exclude: /node_modules/,
-				loader: 'babel'
-			}, {
-				test: /\.jsx?$/,
-				include: /node_modules\/barbarojs/,
-				loader: 'babel'
-			}, {
-				// Transform our own .(less|css) files with PostCSS and CSS-modules
-				test: /\.(less|css)$/,
-				include: [path.resolve(__dirname, 'src/components')],
-				loader: ExtractTextPlugin.extract('style?singleton', [`css-loader?modules&importLoaders=1&sourceMap=${CSS_MAPS}`, 'postcss-loader', `less-loader?sourceMap=${CSS_MAPS}`].join('!'))
-			}, {
-				test: /\.(less|css)$/,
-				exclude: [path.resolve(__dirname, 'src/components')],
-				loader: ExtractTextPlugin.extract('style?singleton', [`css?sourceMap=${CSS_MAPS}`, `postcss`, `less?sourceMap=${CSS_MAPS}`].join('!'))
-			}, {
-				test: /\.json$/,
-				loader: 'json'
-			}, {
-				test: /\.(xml|html|txt|md)$/,
-				loader: 'raw'
-			}, {
-				test: /\.(svg|woff2?|ttf|eot|jpe?g|png|gif)(\?.*)?$/i,
-				loader: ENV === 'production'
-					? 'file?name=[path][name]_[hash:base64:5].[ext]'
-					: 'url'
-			}
-		]
+		preLoaders: [{
+			test: /\.jsx?$/,
+			exclude: path.resolve(__dirname, 'src'),
+			loader: 'source-map'
+		}],
+		loaders: [{
+			test: /\.jsx?$/,
+			exclude: /node_modules/,
+			loader: 'babel'
+		}, {
+			// Transform our own .(less|css) files with PostCSS and CSS-modules
+			test: /\.(less|css)$/,
+			include: [path.resolve(__dirname, 'src/components')],
+			loader: ExtractTextPlugin.extract('style?singleton', [`css-loader?modules&importLoaders=1&sourceMap=${CSS_MAPS}`, 'postcss-loader', `less-loader?sourceMap=${CSS_MAPS}`].join('!'))
+		}, {
+			test: /\.(less|css)$/,
+			exclude: [path.resolve(__dirname, 'src/components')],
+			loader: ExtractTextPlugin.extract('style?singleton', [`css?sourceMap=${CSS_MAPS}`, `postcss`, `less?sourceMap=${CSS_MAPS}`].join('!'))
+		}, {
+			test: /\.json$/,
+			loader: 'json'
+		}, {
+			test: /\.(xml|html|txt|md)$/,
+			loader: 'raw'
+		}, {
+			test: /\.(svg|woff2?|ttf|eot|jpe?g|png|gif)(\?.*)?$/i,
+			loader: ENV === 'production' ?
+				'file?name=[path][name]_[hash:base64:5].[ext]' :
+				'url'
+		}]
 	},
 
-	postcss: () => [autoprefixer({browsers: 'last 2 versions'})],
+	postcss: () => [autoprefixer({
+		browsers: 'last 2 versions'
+	})],
 
 	plugins: ([
 		new webpack.NoErrorsPlugin(),
-		new ExtractTextPlugin('style.css', {allChunks: true}),
-		new webpack.DefinePlugin({'process.env.NODE_ENV': JSON.stringify(ENV)}),
+		new ExtractTextPlugin('style.css', {
+			allChunks: true
+		}),
+		new webpack.DefinePlugin({
+			'process.env.NODE_ENV': JSON.stringify(ENV)
+		}),
 		new HtmlWebpackPlugin({
 			template: './index.html',
 			minify: {
 				collapseWhitespace: true
 			}
 		}),
-		new CopyWebpackPlugin([
-			{
-				from: './manifest.json',
-				to: './'
-			}, {
-				from: './favicon.ico',
-				to: './'
-			}
-		])
-	]).concat(ENV === 'production'
-		? [
+		new CopyWebpackPlugin([{
+			from: './manifest.json',
+			to: './'
+		}, {
+			from: './favicon.ico',
+			to: './'
+		}])
+	]).concat(ENV === 'production' ?
+		[
 			// strip out babel-helper invariant checks
-			new ReplacePlugin([
-				{
-					// this is actually the property name https://github.com/kimhou/replace-bundle-webpack-plugin/issues/1
-					partten: /throw\s+(new\s+)?[a-zA-Z]+Error\s*\(/g,
-					replacement: () => 'return;('
-				}
-			]),
+			new ReplacePlugin([{
+				// this is actually the property name https://github.com/kimhou/replace-bundle-webpack-plugin/issues/1
+				partten: /throw\s+(new\s+)?[a-zA-Z]+Error\s*\(/g,
+				replacement: () => 'return;('
+			}]),
 			new OfflinePlugin({
 				relativePaths: false,
 				AppCache: false,
@@ -119,10 +116,10 @@ module.exports = {
 				},
 				publicPath: '/'
 			})
-		]
-		: []).concat(cliArgs.stats
-		? [new BundleAnalyzerPlugin()]
-		: []),
+		] :
+		[]).concat(cliArgs.stats ?
+		[new BundleAnalyzerPlugin()] :
+		[]),
 	stats: {
 		colors: true
 	},
@@ -135,9 +132,9 @@ module.exports = {
 		setImmediate: false
 	},
 
-	devtool: ENV === 'production'
-		? 'source-map'
-		: 'cheap-module-eval-source-map',
+	devtool: ENV === 'production' ?
+		'source-map' :
+		'cheap-module-eval-source-map',
 
 	devServer: {
 		port: process.env.PORT || 8080,
