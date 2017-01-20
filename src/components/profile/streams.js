@@ -1,4 +1,4 @@
-import {Stream} from '../../libs';
+import {Stream} from 'barbarojs-stream';
 
 export const Streams = {
 	INJECT: new Stream(),
