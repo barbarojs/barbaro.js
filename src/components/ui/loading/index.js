@@ -1,5 +1,5 @@
 import {h, Component} from 'preact';
-import {If} from '../../utils';
+import {If} from 'components/utils';
 import style from './style';
 
 export default class UiLoading extends Component {
