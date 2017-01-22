@@ -1,7 +1,5 @@
-// import 'promise-polyfill';
-// import 'isomorphic-fetch';
 import {h, render} from 'preact';
-import './style';
+import style from 'style/index';
 
 let root;
 function init() {

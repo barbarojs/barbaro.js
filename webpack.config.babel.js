@@ -1,7 +1,10 @@
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import autoprefixer from 'autoprefixer';
+import postcssImport from 'postcss-import';
+import postcssStripInlineComments from 'postcss-strip-inline-comments';
+import cssnext from 'postcss-cssnext';
+import stylelint from 'stylelint';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ReplacePlugin from 'replace-bundle-webpack-plugin';
 import OfflinePlugin from 'offline-plugin';
@@ -32,14 +35,13 @@ module.exports = {
 			path.resolve('./src')
 		],
 		extensions: [
-			'', '.jsx', '.js', '.json', '.less'
+			'', '.jsx', '.js', '.json', '.css'
 		],
 		modulesDirectories: [
 			path.resolve(__dirname, 'node_modules'),
 			'node_modules'
 		],
 		alias: {
-			style: path.resolve(__dirname, 'src/style'),
 			'react': 'preact-compat',
 			'react-dom': 'preact-compat'
 		}
@@ -55,16 +57,21 @@ module.exports = {
 			test: /\.jsx?$/,
 			exclude: /node_modules/,
 			loader: 'babel'
-		}, {
-			// Transform our own .(less|css) files with PostCSS and CSS-modules
-			test: /\.(less|css)$/,
-			include: [path.resolve(__dirname, 'src/components')],
-			loader: ExtractTextPlugin.extract('style?singleton', [`css-loader?modules&importLoaders=1&sourceMap=${CSS_MAPS}`, 'postcss-loader', `less-loader?sourceMap=${CSS_MAPS}`].join('!'))
-		}, {
-			test: /\.(less|css)$/,
-			exclude: [path.resolve(__dirname, 'src/components')],
-			loader: ExtractTextPlugin.extract('style?singleton', [`css?sourceMap=${CSS_MAPS}`, `postcss`, `less?sourceMap=${CSS_MAPS}`].join('!'))
-		}, {
+		},
+		{
+			test: /\.css$/,
+			exclude: /node_modules/,
+			loader:  ExtractTextPlugin.extract([
+				[
+					'css-loader?modules',
+					'localIdentName=[local]-[hash:base64:5]',
+					'importLoaders=1',
+					`sourceMap=${CSS_MAPS}`
+				].join('&'),
+				'postcss-loader?parser=postcss-scss'
+			]) 
+		},
+		{
 			test: /\.json$/,
 			loader: 'json'
 		}, {
@@ -78,13 +85,20 @@ module.exports = {
 		}]
 	},
 
-	postcss: () => [autoprefixer({
-		browsers: 'last 2 versions'
-	})],
+	postcss: () => [
+		stylelint({
+			ignoreFiles: path.dirname(__dirname, 'node_modules/**/*.css')
+		}),
+		postcssImport,
+		postcssStripInlineComments,
+		cssnext({
+			browsers: 'last 2 versions'
+		})
+	],
 
 	plugins: ([
 		new webpack.NoErrorsPlugin(),
-		new ExtractTextPlugin('style.css', {
+		new ExtractTextPlugin('style.css',{
 			allChunks: true
 		}),
 		new webpack.DefinePlugin({

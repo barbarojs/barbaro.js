@@ -1,0 +1,7 @@
+// now how to handle var
+
+:root {
+	--test: 15px
+}
+
+--test-2: 15px;

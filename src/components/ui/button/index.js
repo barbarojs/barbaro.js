@@ -1,7 +1,7 @@
 import {h, Component} from 'preact';
 import {StreamComponent} from 'barbarojs-stream';
-import style from './style';
 import {Components} from 'components/ui/index';
+import style from './style';
 
 export default class UiButton extends StreamComponent {
 
