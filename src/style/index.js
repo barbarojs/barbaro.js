@@ -1,11 +1,9 @@
-import theme from './theme';
-import tool from './tool';
+import root from './root';
 import element from './element';
-import pattern from './pattern/index';
+import button from './pattern/button';
 
 export default {
-	theme,
-	tool,
+	root,
 	element,
-	pattern
-}
+	button
+};

@@ -1,0 +1,10 @@
+@import "~style/helper.scss";
+
+.buttonPattern {
+	padding: 5px;
+	min-width: 50px;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	background: $test-variable;
+	cursor: pointer;
+}

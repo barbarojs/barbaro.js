@@ -1,4 +1,4 @@
-@import "normalize.css";
+@import "~normalize.css";
 
 html,
 body {
@@ -7,9 +7,15 @@ body {
 	padding: 0;
 	margin: 0;
 	background: #fafafa;
-	font-family: 'Helvetica Neue', arial, sans-serif;
+	font-family: 'Helvetica Neue', Arial, sans-serif;
 	font-weight: 400;
 	color: #444;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+
+a {
+	color: blue;
+	cursor: pointer;
+	text-decoration: underline;
 }
