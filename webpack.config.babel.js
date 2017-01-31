@@ -1,7 +1,10 @@
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
+import cssnano from 'cssnano';
 import autoprefixer from 'autoprefixer';
+import stylelint from 'stylelint';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ReplacePlugin from 'replace-bundle-webpack-plugin';
 import OfflinePlugin from 'offline-plugin';
@@ -17,9 +20,11 @@ const cliArgs = parseArgs(process.argv.slice(2));
 
 module.exports = {
 	context: path.resolve(__dirname, 'src'),
+	
 	entry: [ // 'babel-polyfill', // @TODO this is adding some KB
 		'./index.js'
 	],
+	
 	output: {
 		path: path.resolve(__dirname, 'build'),
 		publicPath: '/',
@@ -28,15 +33,17 @@ module.exports = {
 	},
 
 	resolve: {
+		root: [
+			path.resolve('./src')
+		],
 		extensions: [
-			'', '.jsx', '.js', '.json', '.less'
+			'', '.jsx', '.js', '.json', '.scss'
 		],
 		modulesDirectories: [
 			path.resolve(__dirname, 'node_modules'),
 			'node_modules'
 		],
 		alias: {
-			style: path.resolve(__dirname, 'src/style'),
 			'react': 'preact-compat',
 			'react-dom': 'preact-compat'
 		}
@@ -52,16 +59,20 @@ module.exports = {
 			test: /\.jsx?$/,
 			exclude: /node_modules/,
 			loader: 'babel'
-		}, {
-			// Transform our own .(less|css) files with PostCSS and CSS-modules
-			test: /\.(less|css)$/,
-			include: [path.resolve(__dirname, 'src/components')],
-			loader: ExtractTextPlugin.extract('style?singleton', [`css-loader?modules&importLoaders=1&sourceMap=${CSS_MAPS}`, 'postcss-loader', `less-loader?sourceMap=${CSS_MAPS}`].join('!'))
-		}, {
-			test: /\.(less|css)$/,
-			exclude: [path.resolve(__dirname, 'src/components')],
-			loader: ExtractTextPlugin.extract('style?singleton', [`css?sourceMap=${CSS_MAPS}`, `postcss`, `less?sourceMap=${CSS_MAPS}`].join('!'))
-		}, {
+		},
+		{
+			test: /\.(scss|css)$/,
+			exclude: /node_modules/,
+			loader:  ExtractTextPlugin.extract([
+				['css-loader?modules',
+				'localIdentName=[local]-[hash:base64:5]',
+				'importLoaders=1',
+				`sourceMap=${CSS_MAPS}`].join('&'),
+				`sass-loader?sourceMap=${CSS_MAPS}`,
+				'postcss-loader?parser=postcss-scss',
+			]) 
+		},
+		{
 			test: /\.json$/,
 			loader: 'json'
 		}, {
@@ -75,13 +86,22 @@ module.exports = {
 		}]
 	},
 
-	postcss: () => [autoprefixer({
-		browsers: 'last 2 versions'
-	})],
+	postcss: () => [
+		stylelint,
+		autoprefixer({ browsers: 'last 2 versions' })
+	],
+	
+	sassLoader: {
+		outputStyle: 'expanded',
+		includePaths: [
+			path.resolve(__dirname, "./src"),
+			path.resolve(__dirname, "./node_modules")
+		]
+	},
 
 	plugins: ([
 		new webpack.NoErrorsPlugin(),
-		new ExtractTextPlugin('style.css', {
+		new ExtractTextPlugin('style.css',{
 			allChunks: true
 		}),
 		new webpack.DefinePlugin({
@@ -102,6 +122,14 @@ module.exports = {
 		}])
 	]).concat(ENV === 'production' ?
 		[
+			new OptimizeCssAssetsPlugin({
+				cssProcessorOptions: { 
+					mergeRules: true,
+					uniqueSelectors: true,
+					discardDuplicates: true
+				},
+				canPrint: true
+			}),
 			// strip out babel-helper invariant checks
 			new ReplacePlugin([{
 				// this is actually the property name https://github.com/kimhou/replace-bundle-webpack-plugin/issues/1

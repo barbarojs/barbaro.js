@@ -1,7 +1,7 @@
 import {h, Component} from 'preact';
 import {StreamComponent} from 'barbarojs-stream';
+import {Components} from 'components/ui/index';
 import style from './style';
-import {Components} from '../index';
 
 export default class UiButton extends StreamComponent {
 
@@ -20,7 +20,11 @@ export default class UiButton extends StreamComponent {
 
 	render() {
 		return (
-			<button class={style.button} onClick={evt => this.handleClick(evt)}>{this.props.label}</button>
+			<button
+				class={ this.props.type || style.button }
+				style={ this.props.style }
+				onClick={evt => this.handleClick(evt)}
+			>{this.props.label}</button>
 		);
 	}
 }

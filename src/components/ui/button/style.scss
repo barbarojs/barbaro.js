@@ -1,0 +1,31 @@
+@import "~style/helper.scss";
+
+$buttonPrimary: green !default;
+
+.button {
+	composes: buttonPattern from 'style/pattern/button.scss';
+	color: white;
+}
+
+.buttonPrimary {
+	composes: button;
+	background-color: $buttonPrimary;
+}
+
+.buttonSecondary {
+	@include mixinTest();
+}
+
+.buttonSpecial {
+	composes: button;
+	font-size: var(--test-custom-property);
+
+	@supports not (color: var(--custom-properties)) {
+		font-size: $test-custom-property;
+	}
+
+	// or
+
+	// font-size: $test-custom-property;
+	// font-size: var(--test-custom-property);
+}

@@ -20,7 +20,7 @@ module.exports = function(config) {
 				},
 				{
 					type: 'html',
-					dir: 'coverage',
+					dir: 'test-coverage',
 					subdir: '.'
 				}
 			]
@@ -28,10 +28,10 @@ module.exports = function(config) {
 		browsers: ['PhantomJS'],
 		files: [
 			'node_modules/babel-polyfill/dist/polyfill.js',
-			'test/*.js'
+			'src/*.spec.js'
 		],
 		preprocessors: {
-			'test/**/*.js': ['webpack'],
+			'src/**/*.spec.js': ['webpack'],
 			'src/**/*.js': ['webpack'],
 			'**/*.js': ['sourcemap']
 		},
