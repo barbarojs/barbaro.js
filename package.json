@@ -17,10 +17,22 @@
     "preact",
     "boilerplate",
     "webpack",
-    "events"
+    "events",
+    "RxJS",
+    "CSS Module",
+    "Sass"
   ],
+  "bugs": {
+    "url": "https://github.com/barbarojs/barbaro.js/issues"
+  },
   "license": "MIT",
   "author": "Marco Sangalli <sangalli.marco@gmail.com>",
+  "contributurs": [
+    {
+      "name": "Matteo Gilardoni",
+      "email": "matteowebdesigner@googlemail.com"
+    }
+  ],
   "devDependencies": {
     "autoprefixer": "^6.7.0",
     "babel": "^6.5.2",
@@ -58,8 +70,6 @@
     "karma-phantomjs-launcher": "^1.0.2",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.8.1",
-    "less": "^2.7.1",
-    "less-loader": "^2.2.3",
     "mdcss": "^1.5.3",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
