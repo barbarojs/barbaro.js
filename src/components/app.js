@@ -1,5 +1,5 @@
 import {h, Component} from 'preact';
-import {Router} from 'preact-router';
+import {Router, route} from 'preact-router';
 import {SplitCode} from './utils';
 import NotFound from './notFound';
 import Header from './header';
@@ -12,7 +12,7 @@ import { http, httpProvider } from 'barbarojs-http';
 // using middlewares
 httpProvider.use((req) => {
 	if (req.status === 403) {
-		// redirect to home
+		// redirect to home/login
 		route('/');
 		return Promise.reject(req);
 	} else if (req.status >= 400) {
