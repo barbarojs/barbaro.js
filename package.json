@@ -98,9 +98,9 @@
     "webpack-dev-server": "^1.15.0"
   },
   "dependencies": {
-    "normalize.css": "^5.0.0",
-    "barbarojs-http": "^1.0.2",
+    "barbarojs-http": "^1.0.8",
     "barbarojs-stream": "^1.0.1",
+    "normalize.css": "^5.0.0",
     "preact": "^6.0.0",
     "preact-compat": "^3.0.0",
     "preact-router": "^2.0.0",

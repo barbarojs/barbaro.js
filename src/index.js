@@ -1,5 +1,6 @@
 import {h, render} from 'preact';
 import style from 'style/index';
+import { httpProvider } from 'barbarojs-http';
 
 let root;
 function init() {
@@ -11,6 +12,9 @@ function init() {
 // register ServiceWorker via OfflinePlugin, for prod only:
 if (process.env.NODE_ENV === 'production') {
 	require('./pwa');
+} else {
+	// use with testing backend
+	httpProvider.setHostname('http://localhost:3000');
 }
 
 // in development, set up HMR:
