@@ -6,7 +6,21 @@ import Header from './header';
 import Home from './home';
 import Profile from './profile';
 import style from './style';
+import { http, httpProvider } from 'barbarojs-http';
 // import "babel-polyfill";
+
+// using middlewares
+httpProvider.use((req) => {
+	if (req.status === 403) {
+		// redirect to home
+		route('/');
+		return Promise.reject(req);
+	} else if (req.status >= 400) {
+		return Promise.reject(req);
+	} else {
+		return Promise.resolve(req);
+	}
+});
 
 export default class App extends Component {
 	/** Gets fired when the route changes.
