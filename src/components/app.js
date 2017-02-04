@@ -49,6 +49,8 @@ export default class App extends Component {
 			</div>
 		);*/
 
-		return (<div>ok</div>);
+		return (
+			<div>ok</div>
+		);
 	}
 }
