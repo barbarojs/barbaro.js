@@ -13,6 +13,10 @@
     "test:karma": "karma start karma.conf.js --single-run",
     "lint": "eslint {src,test}"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com:barbarojs/barbaro.js.git"
+  },
   "keywords": [
     "preact",
     "boilerplate",

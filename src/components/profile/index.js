@@ -2,7 +2,7 @@ import {h, Component} from 'preact';
 import {Streams} from './streams';
 import {http} from 'barbarojs-http';
 import {StreamManager} from 'barbarojs-stream';
-import {ProfileComponents} from './components';
+import {ComponentsIds} from './components';
 import {Components, UiButton} from '../ui';
 import {ApiRoutes} from './api';
 import style from './style';
@@ -23,7 +23,7 @@ export default class Profile extends Component {
 	// init dispatcher
 	componentWillMount() {
 		const buttonActions = {
-			[ProfileComponents.TEST_BUTTON]: data => {
+			[ComponentsIds.TEST_BUTTON]: data => {
 				console.log(data);
 
 				// test a connection
@@ -85,7 +85,7 @@ export default class Profile extends Component {
 				<div>Current time: {time}</div>
 				<div>Profile route mounted {count}
 					times.</div>
-				<UiButton streams={Streams} label="test" id={ProfileComponents.TEST_BUTTON}></UiButton>
+				<UiButton streams={Streams} label="test" id={ComponentsIds.TEST_BUTTON}></UiButton>
 			</div>
 		);
 	}
