@@ -1,11 +1,11 @@
 import {h, Component} from 'preact';
 import {Router, route} from 'preact-router';
-import {SplitCode} from './utils';
-import NotFound from './notFound';
-import Header from './header';
-import Home from './home';
-import Profile from './profile';
-import style from './style';
+// import {SplitCode} from './utils/index';
+// import NotFound from './notFound/index';
+// import Header from './header/index';
+// import Home from './home/index';
+// import Profile from './profile/index';
+// import style from './style.scss!scss';
 import { http, httpProvider } from 'barbarojs-http';
 // import "babel-polyfill";
 
@@ -32,7 +32,7 @@ export default class App extends Component {
 	// }
 
 	render () {
-		return (
+		/*return (
 			<div class={style.app}>
 				<Header></Header>
 				<Router onChange={this.handleRoute}>
@@ -40,13 +40,15 @@ export default class App extends Component {
 					<SplitCode
 						path="/code-splitting-page"
 						load={require('bundle?lazy!./codeSplittingPage')}
-						fallbackContent={(<div style="margin-top:64px;">custom loading fallback</div>)}> {/* TODO improve style page to remove this inline style */}
+						fallbackContent={(<div style="margin-top:64px;">custom loading fallback</div>)}>
 					</SplitCode>
 					<Profile path="/profile/" user="me"></Profile>
 					<Profile path="/profile/:user"></Profile>
 					<NotFound default></NotFound>
 				</Router>
 			</div>
-		);
+		);*/
+
+		return (<div>ok</div>);
 	}
 }
