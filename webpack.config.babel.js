@@ -28,8 +28,8 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, 'build'),
 		publicPath: '/',
-		filename: 'bundle.js',
-		chunkFilename: 'bundle-[id].js'
+		filename: 'bundle-[hash].js',
+		chunkFilename: 'bundle-[hash]-[id].js'
 	},
 
 	resolve: {
