@@ -99,9 +99,11 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.13.2",
     "webpack-bundle-analyzer": "^2.2.1",
-    "webpack-dev-server": "^1.15.0"
+    "webpack-dev-server": "^1.15.0",
+    "webpack-link": "^0.2.0"
   },
   "dependencies": {
+    "barbarojs-ui": "^0.0.1",
     "barbarojs-http": "^1.0.8",
     "barbarojs-stream": "^1.0.1",
     "normalize.css": "^5.0.0",
