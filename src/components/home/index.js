@@ -3,12 +3,13 @@ import {Streams} from './streams';
 import {StreamManager} from 'barbarojs-stream';
 import style from './style';
 
-import buiButton from 'barbarojs-ui';
+import BUiButton from 'barbarojs-ui';
 import {ComponentsIds} from './components';
 import {Components, UiButton} from 'components/ui';
 import uiButtonStyle from 'components/ui/button/style';
 
-console.log("barbaro.js imported barbarojs-ui module", buiButton);
+console.log("external", BUiButton);
+console.log("local", UiButton);
 
 export default class Home extends Component {
 

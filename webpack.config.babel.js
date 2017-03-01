@@ -14,8 +14,6 @@ import {
 	BundleAnalyzerPlugin
 } from 'webpack-bundle-analyzer';
 
-console.log('MATTEO',path.resolve(__dirname, 'node_modules/barbarojs-ui'));
-
 const cliArgs = parseArgs(process.argv.slice(2));
 const ENV = process.env.NODE_ENV || 'development';
 const CSS_MAPS = ENV == 'development' && !cliArgs['no-sm'];
@@ -48,6 +46,8 @@ module.exports = {
 		alias: {
 			'react': 'preact-compat',
 			'react-dom': 'preact-compat'
+			// 'barbarojs-ui' : '/barbarojs-ui/build/bundle.js'
+			// 'barbarojs-ui' : '/Users/matteo/Documents/Github/barbarojs-ui/build/bundle.js'
 		}
 	},
 
@@ -161,7 +161,7 @@ module.exports = {
 
 	devtool: ENV === 'production' ?
 		'source-map' :
-		'cheap-module-eval-source-map',
+		'',
 
 	devServer: {
 		port: process.env.PORT || 8080,

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Ready-to-go Preact starter project powered by webpack and RxJs.",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --progress",
     "start": "serve build -s -c 1",
     "prestart": "npm run build",
     "build": "cross-env NODE_ENV=production webpack -p --progress",
@@ -103,9 +103,9 @@
     "webpack-link": "^0.2.0"
   },
   "dependencies": {
-    "barbarojs-ui": "^0.0.1",
     "barbarojs-http": "^1.0.8",
     "barbarojs-stream": "^1.0.1",
+    "barbarojs-ui": "0.0.5",
     "normalize.css": "^5.0.0",
     "preact": "^6.0.0",
     "preact-compat": "^3.0.0",
