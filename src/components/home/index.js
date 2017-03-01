@@ -3,12 +3,11 @@ import {Streams} from './streams';
 import {StreamManager} from 'barbarojs-stream';
 import style from './style';
 
-import buiButton from 'barbarojs-ui';
+import BUIButton from 'barbarojs-ui/src/components/UiButton';
+
 import {ComponentsIds} from './components';
 import {Components, UiButton} from 'components/ui';
 import uiButtonStyle from 'components/ui/button/style';
-
-console.log("barbaro.js imported barbarojs-ui module", buiButton);
 
 export default class Home extends Component {
 
@@ -44,6 +43,7 @@ export default class Home extends Component {
 	render() {
 		return (
 			<div class={style.home}>
+				//<BUiButton>ciao</BUiButton>
 				<h1>Home</h1>
 				<p>This is the Home component.</p>
 				

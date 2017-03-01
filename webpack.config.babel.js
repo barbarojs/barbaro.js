@@ -10,11 +10,7 @@ import OfflinePlugin from 'offline-plugin';
 import webpackLinkPlugin from 'webpack-link';
 import path from 'path';
 import parseArgs from 'minimist';
-import {
-	BundleAnalyzerPlugin
-} from 'webpack-bundle-analyzer';
-
-console.log('MATTEO',path.resolve(__dirname, 'node_modules/barbarojs-ui'));
+import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer';
 
 const cliArgs = parseArgs(process.argv.slice(2));
 const ENV = process.env.NODE_ENV || 'development';
@@ -47,7 +43,8 @@ module.exports = {
 		],
 		alias: {
 			'react': 'preact-compat',
-			'react-dom': 'preact-compat'
+			'react-dom': 'preact-compat',
+			'barbarojs-ui' : '/Users/matteo/Documents/Github/barbarojs-ui/'
 		}
 	},
 
@@ -70,6 +67,7 @@ module.exports = {
 				'importLoaders=1',
 				`sourceMap=${CSS_MAPS}`].join('&'),
 				`sass-loader?sourceMap=${CSS_MAPS}`,
+				'sass-resources',
 				'postcss-loader?parser=postcss-scss',
 			]) 
 		},
@@ -86,6 +84,8 @@ module.exports = {
 				'url'
 		}]
 	},
+	
+	// sassResources: path.resolve(__dirname, 'src/style/setting/theme.scss'),
 
 	postcss: () => [
 		stylelint,
@@ -161,7 +161,7 @@ module.exports = {
 
 	devtool: ENV === 'production' ?
 		'source-map' :
-		'cheap-module-eval-source-map',
+		'',
 
 	devServer: {
 		port: process.env.PORT || 8080,
