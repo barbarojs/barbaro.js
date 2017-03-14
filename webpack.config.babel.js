@@ -85,7 +85,7 @@ module.exports = {
 		}]
 	},
 	
-	// sassResources: path.resolve(__dirname, 'src/style/setting/theme.scss'),
+	sassResources: path.resolve(__dirname, 'src/style/setting/theme.scss'),
 
 	postcss: () => [
 		stylelint,

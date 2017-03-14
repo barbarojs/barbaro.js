@@ -8,6 +8,8 @@ import {ComponentsIds} from './components';
 import {Components, UiButton} from 'components/ui';
 import uiButtonStyle from 'components/ui/button/style';
 
+console.log(BUIButton);
+
 export default class Home extends Component {
 
 	constructor() {
@@ -38,11 +40,13 @@ export default class Home extends Component {
 
 		this.sm.dispatch(Streams.CHANGE, actions);
 	}
+	
+	// <BUiButton>ciao</BUiButton>
 
 	render() {
 		return (
 			<div class={style.home}>
-				//<BUiButton>ciao</BUiButton>
+				
 				<h1>Home</h1>
 				<p>This is the Home component.</p>
 				
