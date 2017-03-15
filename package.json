@@ -108,7 +108,6 @@
   "dependencies": {
     "barbarojs-http": "^1.0.8",
     "barbarojs-stream": "^1.0.1",
-    "barbarojs-ui": "0.0.5",
     "normalize.css": "^5.0.0",
     "preact": "^6.0.0",
     "preact-compat": "^3.0.0",

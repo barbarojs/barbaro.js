@@ -1,0 +1,3 @@
+[submodule "src/components/barbarojs-ui"]
+	path = src/components/barbarojs-ui
+	url = git@github.com:barbarojs/barbarojs-ui.git

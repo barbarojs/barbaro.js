@@ -43,8 +43,7 @@ module.exports = {
 		],
 		alias: {
 			'react': 'preact-compat',
-			'react-dom': 'preact-compat',
-			'barbarojs-ui' : '/Users/matteo/Documents/Github/barbarojs-ui/'
+			'react-dom': 'preact-compat'
 		}
 	},
 
