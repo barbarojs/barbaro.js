@@ -1,4 +1,4 @@
-@import "~style/helper.scss";
+@import "~style/setting/variable";
 
 $buttonPrimary: green !default;
 
@@ -13,7 +13,7 @@ $buttonPrimary: green !default;
 }
 
 .buttonSecondary {
-	@include mixinTest();
+	//@include mixinTest();
 }
 
 .buttonSpecial {
@@ -23,9 +23,4 @@ $buttonPrimary: green !default;
 	@supports not (color: var(--custom-properties)) {
 		font-size: $test-custom-property;
 	}
-
-	// or
-
-	// font-size: $test-custom-property;
-	// font-size: var(--test-custom-property);
 }

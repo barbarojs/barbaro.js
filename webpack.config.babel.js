@@ -1,22 +1,20 @@
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
-import cssnano from 'cssnano';
 import autoprefixer from 'autoprefixer';
 import stylelint from 'stylelint';
+import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ReplacePlugin from 'replace-bundle-webpack-plugin';
 import OfflinePlugin from 'offline-plugin';
+import webpackLinkPlugin from 'webpack-link';
 import path from 'path';
 import parseArgs from 'minimist';
-import {
-	BundleAnalyzerPlugin
-} from 'webpack-bundle-analyzer';
+import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer';
 
-const ENV = process.env.NODE_ENV || 'development';
-const CSS_MAPS = ENV !== 'production';
 const cliArgs = parseArgs(process.argv.slice(2));
+const ENV = process.env.NODE_ENV || 'development';
+const CSS_MAPS = ENV == 'development' && !cliArgs['no-sm'];
 
 module.exports = {
 	context: path.resolve(__dirname, 'src'),
@@ -28,8 +26,8 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, 'build'),
 		publicPath: '/',
-		filename: 'bundle.js',
-		chunkFilename: 'bundle-[id].js'
+		filename: 'bundle-[hash].js',
+		chunkFilename: 'bundle-[hash]-[id].js'
 	},
 
 	resolve: {
@@ -62,13 +60,13 @@ module.exports = {
 		},
 		{
 			test: /\.(scss|css)$/,
-			exclude: /node_modules/,
 			loader:  ExtractTextPlugin.extract([
 				['css-loader?modules',
 				'localIdentName=[local]-[hash:base64:5]',
 				'importLoaders=1',
 				`sourceMap=${CSS_MAPS}`].join('&'),
 				`sass-loader?sourceMap=${CSS_MAPS}`,
+				'sass-resources',
 				'postcss-loader?parser=postcss-scss',
 			]) 
 		},
@@ -85,19 +83,13 @@ module.exports = {
 				'url'
 		}]
 	},
+	
+	sassResources: path.resolve(__dirname, 'src/style/setting/theme.scss'),
 
 	postcss: () => [
 		stylelint,
 		autoprefixer({ browsers: 'last 2 versions' })
 	],
-	
-	sassLoader: {
-		outputStyle: 'expanded',
-		includePaths: [
-			path.resolve(__dirname, "./src"),
-			path.resolve(__dirname, "./node_modules")
-		]
-	},
 
 	plugins: ([
 		new webpack.NoErrorsPlugin(),
@@ -120,7 +112,13 @@ module.exports = {
 			from: './favicon.ico',
 			to: './'
 		}])
-	]).concat(ENV === 'production' ?
+	])
+	.concat(ENV === 'development' ? [
+		new webpackLinkPlugin({
+	      "barbarojs-ui": path.resolve(__dirname, 'node_modules/barbarojs-ui')
+	    })
+	] : [])
+	.concat(ENV === 'production' ?
 		[
 			new OptimizeCssAssetsPlugin({
 				cssProcessorOptions: { 
@@ -162,7 +160,7 @@ module.exports = {
 
 	devtool: ENV === 'production' ?
 		'source-map' :
-		'cheap-module-eval-source-map',
+		'',
 
 	devServer: {
 		port: process.env.PORT || 8080,
